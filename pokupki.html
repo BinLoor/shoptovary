@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="vendor/jquery-3.6.1.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="tabl"></div>
+        
+    <script>
+    var $tabl = $("#tabl");
+    var str = 
+    `<table border='1'><tr><th>id</th> <th>title</th> <th>desc</th> <th>price</th> <th>count</th><th>kat</th></tr>`;
+    html=$.parseHTML(str)
+    // {"response":[{"id":1,"title":"","desc":"","price":2000,"count":""},...]}
+    $.get('get_shop.php', function(data) {
+        let otvet = JSON.parse(data)
+        for(let i =0;i<otvet.response.length;i++){
+            //alert(otvet.response[i].title)
+            str+=`<tr><td>${otvet.response[i].id}</td><td>${otvet.response[i].title}</td><td>${otvet.response[i].desc}</td><td>${otvet.response[i].price}</td><td>${otvet.response[i].count}</td><td>${otvet.response[i].kat}</td></tr>`;
+        }
+        str+="</table>";
+        $tabl.append(str);
+    })
+    </script>
+</body>
+</html>
